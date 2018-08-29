@@ -1,6 +1,20 @@
-#include <ros/ros.h>
+/*
+The following is a summary of the licenses involved in this project.
+Please also refer to the LICENSE folder in this github repository
+for full licensing information.
+LICENSE SUMMARY:
+------------------------------------------
+               BSD License
+applies to:
+- ros, Copyright (c) 2008, Willow Garage, Inc.
+- sensor_msgs, Copyright (c) 2008, Willow Garage, Inc.
+- audio_common_msgs, Copyright (c) 2008, Willow Garage, Inc.
+- image_transport, Copyright (c) 2009, Willow Garage, Inc.
+- message_filters, Copyright (c) 2009, Willow Garage, Inc.
+------------------------------------------
+*/
 
-//#include <boost/bind.hpp>
+#include <ros/ros.h>
 
 #include <message_filters/subscriber.h>
 #include <message_filters/synchronizer.h>

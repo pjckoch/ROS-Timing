@@ -1,4 +1,16 @@
-//#include "/home/patrick/catkin_ws/src/timing_analysis/include/timing_analysis/timing_analysis.h"
+/*
+The following is a summary of the licenses involved in this project.
+Please also refer to the LICENSE folder in this github repository
+for full licensing information.
+LICENSE SUMMARY:
+------------------------------------------
+               BSD License
+applies to:
+- ros, Copyright (c) 2008, Willow Garage, Inc.
+- std_msgs, Copyright (c) 2008, Willow Garage, Inc.
+------------------------------------------
+*/
+
 #include <timing_analysis/timing_analysis.h>
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
