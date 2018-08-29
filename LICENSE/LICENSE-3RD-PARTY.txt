@@ -3,6 +3,8 @@
 The BSD License 2.0
 
 applies to:
+- python_timing_analysis.py
+- python_timing_analysis.pyc
 - timing_analysis.h
 - timing_analysis.cpp
 - msg_sync.cpp
