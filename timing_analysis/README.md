@@ -5,7 +5,7 @@ This package serves to analyze the timing of a system or node. It requires that 
 
 ## Prerequisites
 - Install [chrony](https://chrony.tuxfamily.org/index.html) on each machine that is used: `apt-get install chrony`. After installation, the chrony daemon will start automatically and synchronize the system clock of the machine with various internet servers. In a distributed system, this ensures that the clocks of the machines are in sync. This is important, as otherwise a timing analysis would be meaningless.
-- Compilation of [logfile_stats.cpp](src/timing_analysis/logfile_stats.cpp): `g++ -std=c++11 logfile_stats.cpp -o logfile_stats`
+- Compile [logfile_stats.cpp](src/timing_analysis/logfile_stats.cpp): `g++ -std=c++11 logfile_stats.cpp -o logfile_stats`
 
 ## How to use
 
