@@ -9,6 +9,8 @@ This package serves to analyze the timing of a system or node. It requires that 
 
 ## How to use
 
+**Remark**: If you only intend to use this package with the [ROS-Robotic-Infant-Ears](https://github.com/pjckoch/ROS-Robotic-Infant-Ears.git) or the [ROS-Robotic-Infant-Eyes](https://github.com/pjckoch/ROS-Robotic-Infant-Eyes.git) repository, you can skip to step 7.
+
 1. `#include <timing_analysis/timing_analysis.h>` in the node that you would like to analyze (don't forget to add timing_analysis to the build dependencies in the package.xml and to find it in the CMakeLists.txt of your node).
 2. Create a `ros::Publisher time_pub_` that will publish the duration. Advertise it under a topic like "myNodeDuration".
 3. At the beginning of your callback, obtain the current system time, e.g. `ros::Time callback_begin = ros::Time::now();`
@@ -16,6 +18,5 @@ This package serves to analyze the timing of a system or node. It requires that 
 5. Pass the timestamp of the message that the node received `msg->header.stamp`, `callback_begin`, `callback_end` and `time_pub_` to the function `publishDuration()` which is contained in timing_analysis.h.
 6. The function `publishDuration()` will publish a `std_msgs::Float32MultiArray` which will contain the information:
 [bare_processing_time, processing_time+network_latency].
-7. You can the start the measurement by echoing the published duration messages into a txt- or log-file by running 
-`rostopic echo -p /topic_name > data.txt` on your command line.
-8. When you finished your measurement, run the logfile_stats (`./logfile_stats` on command line). You will be asked to specify the full filepath to your log-file (e.g. `/home/myusername/mylogfiles/mynodeduration.log`). Then, the results will be printed to your terminal.
+7. As soon as your node is running, you can the start the measurement by echoing the published duration messages into a txt- or log-file by running `rostopic echo -p /topic_name > data.txt` on your command line.
+8. When you finished your measurement, run the logfile_stats script (`./logfile_stats` on command line). You will be asked to specify the full path to your log-file (e.g. `/home/myusername/mylogfiles/mynodeduration.log`). Then, the results will be printed to your terminal.
