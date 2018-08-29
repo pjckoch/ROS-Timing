@@ -1,14 +1,13 @@
-**timing_analysis package:**
+# The timing_analysis package
 
+## Description
 This package serves to analyze the timing of a system or node. It requires that all messages of interest contain a header (std_msgs/Header). It will then publish the time that the node took for bare processing, and the elapsed time between when the header of the message that the node subscribed to, was created. This is particularly useful in distributed systems, where you would like to know how fast your node is and how much impact the connection between the system components (e.g. Wifi) has on the overall run-time.
 
-**Compilation of logfile_stats.cpp:** `g++ -std=c++11 logfile_stats.cpp -o logfile_stats`
+## Prerequisites
+- Install [chrony](https://chrony.tuxfamily.org/index.html) on each machine that is used: `apt-get install chrony`. After installation, the chrony daemon will start automatically and synchronize the system clock of the machine with various internet servers. In a distributed system, this ensures that the clocks of the machines are in sync. This is important, as otherwise a timing analysis would be meaningless.
+- Compilation of [logfile_stats.cpp](src/timing_analysis/logfile_stats.cpp): `g++ -std=c++11 logfile_stats.cpp -o logfile_stats`
 
-**Remark:** For accurate measurements in distributed systems, you should make sure that the clocks of the machines are in sync. One possibility to ensure this is to install chrony on each machine (`apt-get install chrony`). After installation, the chrony daemon will start automatically and synchronize the clock of the machine with various internet servers.
-
-**How to use:**
-(Remark: variable names are arbitrary)
-
+## How to use
 
 1. `#include <timing_analysis/timing_analysis.h>` in the node that you would like to analyze (don't forget to add timing_analysis to the build dependencies in the package.xml and to find it in the CMakeLists.txt of your node).
 2. Create a `ros::Publisher time_pub_` that will publish the duration. Advertise it under a topic like "myNodeDuration".
