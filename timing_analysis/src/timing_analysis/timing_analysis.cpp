@@ -16,12 +16,12 @@ applies to:
 #include <std_msgs/Float32MultiArray.h>
 
 
-void publishDuration(ros::Time stamp_sub, ros::Time process_begin, ros::Time callback_end, ros::Publisher pub) {
-    std_msgs::Float32MultiArray msg;
-    ros::Duration elapsed_proc = callback_end - process_begin;
+void publishDuration(ros::Time stamp_sub, ros::Time callback_begin, ros::Time callback_end, ros::Publisher pub) {
+    std_msgs::Float32MultiArray time_msg;
+    ros::Duration elapsed_proc = callback_end - callback_begin;
     ros::Duration elapsed = callback_end - stamp_sub;
-    msg.data.resize(2);
-    msg.data[0] = elapsed_proc.toSec();
-    msg.data[1] = elapsed.toSec();
-    pub.publish(msg);
+    time_msg.data.resize(2);
+    time_msg.data[0] = elapsed_proc.toSec();
+    time_msg.data[1] = elapsed.toSec();
+    pub.publish(time_msg);
 }
