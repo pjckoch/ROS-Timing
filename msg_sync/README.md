@@ -14,7 +14,7 @@ You are free to adapt the code to your needs, i.e. you can change the number or 
 ## Prerequisites
 - Clone this repository
 - Clone the [ROS-Robotic-Infant-Ears](https://github.com/pjckoch/ROS-Robotic-Infant-Ears.git) and the [ROS-Robotic-Infant-Eyes](https://github.com/pjckoch/ROS-Robotic-Infant-Eyes.git) repository, unless you want to modify [synchronizer.cpp](src/msg_sync/synchronizer.cpp) to synchronize other message types. 
-- Build your workspace
+- Build your catkin workspace.
 - Remark: The message_filters package is part of the [ros_communication related packages](https://github.com/ros/ros_comm.git) and should already be installed in your ROS environment.
 
 ## How to use
