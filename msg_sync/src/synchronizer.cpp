@@ -76,36 +76,37 @@ public:
       // subscribe to topics
       audio_sub.subscribe(nh_, audio_top, 1);
       fft_sub.subscribe(nh_, fft_top, 1);
-      image1_sub.subscribe(nh_, img_top1, 1); 
-      image2_sub.subscribe(nh_, img_top2, 1); 
-      image3_sub.subscribe(nh_, img_top3, 1); 
-      image4_sub.subscribe(nh_, img_top4, 1); 
-      image5_sub.subscribe(nh_, img_top5, 1); 
-      image6_sub.subscribe(nh_, img_top6, 1);  
+      img_sub1.subscribe(nh_, img_top1, 1); 
+      img_sub2.subscribe(nh_, img_top2, 1); 
+      img_sub3.subscribe(nh_, img_top3, 1); 
+      img_sub4.subscribe(nh_, img_top4, 1); 
+      img_sub5.subscribe(nh_, img_top5, 1); 
+      img_sub6.subscribe(nh_, img_top6, 1);  
 
       s = "/sync";
 
       // advertise publisher topics
       audio_pub = nh_.advertise<audio_proc::AudioWav>(audio_top + s, 1);
       fft_pub = nh_.advertise<audio_proc::FFTData>(fft_top + s, 1);
-      image_pub1 = it_.advertise(img_top1 + s, 1);
-      image_pub2 = it_.advertise(img_top2 + s, 1);
-      image_pub3 = it_.advertise(img_top3 + s, 1);
-      image_pub4 = it_.advertise(img_top4 + s, 1);
-      image_pub5 = it_.advertise(img_top5 + s, 1);
-      image_pub6 = it_.advertise(img_top6 + s, 1);
+      img_pub1 = it_.advertise(img_top1 + s, 1);
+      img_pub2 = it_.advertise(img_top2 + s, 1);
+      img_pub3 = it_.advertise(img_top3 + s, 1);
+      img_pub4 = it_.advertise(img_top4 + s, 1);
+      img_pub5 = it_.advertise(img_top5 + s, 1);
+      img_pub6 = it_.advertise(img_top6 + s, 1);
 
       // ApproximateTime takes a queue size as its constructor argument, hence MySyncPolicy(10)
-      sync_.reset(new Sync(MySyncPolicy(10), audio_sub, fft_sub, image1_sub, image2_sub, image3_sub, image4_sub, image5_sub, image6_sub));
+      sync_.reset(new Sync(MySyncPolicy(10), audio_sub, fft_sub, img_sub1, img_sub2,
+                  img_sub3, img_sub4, img_sub5, img_sub6));
       // The number of arguments (topics) is limited to 8 because of limitations of boost::bind
       sync_->registerCallback(boost::bind(&SyncMessages::callback, this, _1, _2, _3, _4, _5, _6, _7, _8));
 
   }
 
   void callback(const audio_proc::AudioWav::ConstPtr& audio, const audio_proc::FFTData::ConstPtr& fft,
-                const ImageConstPtr& image1, const ImageConstPtr& image2,
-                const ImageConstPtr& image3, const ImageConstPtr& image4,
-                const ImageConstPtr& image5, const ImageConstPtr& image6) {   
+                const ImageConstPtr& img1, const ImageConstPtr& img2,
+                const ImageConstPtr& img3, const ImageConstPtr& img4,
+                const ImageConstPtr& img5, const ImageConstPtr& img6) {   
         // Starts as soon as synchronized messages are available
         std::cout << "Image topics in sync" << std::endl;
 
@@ -113,12 +114,12 @@ public:
         audio_pub.publish(audio);
         fft_pub.publish(fft);
         begin = ros::Time::now();
-        image_pub1.publish(image1);
-        image_pub2.publish(image2);
-        image_pub3.publish(image3);
-        image_pub4.publish(image4);
-        image_pub5.publish(image5);
-        image_pub6.publish(image6);
+        img_pub1.publish(img1);
+        img_pub2.publish(img2);
+        img_pub3.publish(img3);
+        img_pub4.publish(img4);
+        img_pub5.publish(img5);
+        img_pub6.publish(img6);
         dur = ros::Time::now() - begin;
         std::cout << dur.toSec();
 
@@ -128,22 +129,22 @@ private:
       // subscribers
       message_filters::Subscriber<audio_proc::AudioWav> audio_sub;
       message_filters::Subscriber<audio_proc::FFTData> fft_sub;
-      message_filters::Subscriber<Image> image1_sub; 
-      message_filters::Subscriber<Image> image2_sub; 
-      message_filters::Subscriber<Image> image3_sub; 
-      message_filters::Subscriber<Image> image4_sub; 
-      message_filters::Subscriber<Image> image5_sub; 
-      message_filters::Subscriber<Image> image6_sub;
+      message_filters::Subscriber<Image> img_sub1; 
+      message_filters::Subscriber<Image> img_sub2; 
+      message_filters::Subscriber<Image> img_sub3; 
+      message_filters::Subscriber<Image> img_sub4; 
+      message_filters::Subscriber<Image> img_sub5; 
+      message_filters::Subscriber<Image> img_sub6;
 
       // publishers
       ros::Publisher audio_pub;
       ros::Publisher fft_pub;
-      image_transport::Publisher image_pub1;
-      image_transport::Publisher image_pub2;
-      image_transport::Publisher image_pub3;
-      image_transport::Publisher image_pub4;
-      image_transport::Publisher image_pub5;
-      image_transport::Publisher image_pub6;
+      image_transport::Publisher img_pub1;
+      image_transport::Publisher img_pub2;
+      image_transport::Publisher img_pub3;
+      image_transport::Publisher img_pub4;
+      image_transport::Publisher img_pub5;
+      image_transport::Publisher img_pub6;
       
       typedef sync_policies::ApproximateTime<audio_proc::AudioWav, audio_proc::FFTData, Image, Image, Image, Image, Image, Image> MySyncPolicy;
       // ApproximateTime takes a queue size as its constructor argument, hence MySyncPolicy(10)
