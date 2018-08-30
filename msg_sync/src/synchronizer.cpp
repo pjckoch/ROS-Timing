@@ -62,16 +62,16 @@ public:
 
       // get parameters from ROS parameter server
       
-      nh_.param<int>("queue_size", queue_size_, 50);
+      nh_.param<int>("queue_size", queue_size_, 20);
 
       nh_.param<std::string>("audio_topic", audio_top, "/audio");
       nh_.param<std::string>("fft_topic", fft_top, "/fftData");
-      nh_.param<std::string>("img_topic1", img_top1, "/stereo/left/image_raw");
-      nh_.param<std::string>("img_topic2", img_top2, "/stereo/right/image_raw");
-      nh_.param<std::string>("img_topic3", img_top3, "/stereo/left/edge_map");
-      nh_.param<std::string>("img_topic4", img_top4, "/stereo/right/edge_map");
-      nh_.param<std::string>("img_topic5", img_top5, "/stereo/left/blob");
-      nh_.param<std::string>("img_topic6", img_top6, "/stereo/right/blob");
+      nh_.param<std::string>("img_topic1", img_top1, "/stereo/right/image_raw");
+      nh_.param<std::string>("img_topic2", img_top2, "/stereo/left/image_raw");
+      nh_.param<std::string>("img_topic3", img_top3, "/stereo/right/edge_map");
+      nh_.param<std::string>("img_topic4", img_top4, "/stereo/left/edge_map");
+      nh_.param<std::string>("img_topic5", img_top5, "/stereo/right/blob");
+      nh_.param<std::string>("img_topic6", img_top6, "/stereo/left/blob");
 
       // subscribe to topics
       audio_sub.subscribe(nh_, audio_top, 1);

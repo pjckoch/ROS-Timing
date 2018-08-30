@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- The synchronizer synchronizes 8 topics -->
+<!-- It cannot be called with more or less topics -->
+
+<!-- Topic names that the synchronizer will subscribe to -->
+<arg name="audio_topic" default="/audio"/>
+<arg name="fft_topic" default="/fftData"/>
+<arg name="img_topic1" default="/stereo/right/image_raw"/>
+<arg name="img__topic2" default="/stereo/left/image_raw"/>
+<arg name="img_topic3" default="/stereo/right/edge_map"/>
+<arg name="img_topic4" default="/stereo/left/edge_map"/>
+<arg name="img_topic5" default="/stereo/right/blob"/>
+<arg name="img_topic6" default="/stereo/left/blob"/>
+
+<!-- Queue size for message filter -->
+<arg name="queue_size" default="20"/>
+
+<node name="synchronizer" pkg="msg_sync" type="synchronizer" output="screen">
+  <!-- Topic names that the synchronizer will subscribe to -->
+  <param name="queue_size" value="$(arg queue_size)"/>
+  <param name="audio_topic" value="/audio"/>
+  <param name="fft_topic" value="/fftData"/>
+  <param name="img_topic1" value="/stereo/right/image_raw"/>
+  <param name="img__topic2" value="/stereo/left/image_raw"/>
+  <param name="img_topic3" value="/stereo/right/edge_map"/>
+  <param name="img_topic4" value="/stereo/left/edge_map"/>
+  <param name="img_topic5" value="/stereo/right/blob"/>
+  <param name="img_topic6" value="/stereo/left/blob"/>
+</node>
+
+</launch>
