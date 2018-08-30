@@ -1,7 +1,7 @@
 # The timing_analysis package
 
 ## Description
-This package serves to analyze the timing of a publisher-subscriber-pair. It requires that all messages of interest contain a header (std_msgs/Header). It will then publish the time that the subcriber node took for bare processing, and the elapsed time between setting the header timestamp (by the publisher) and finishing message processing in a callback (by the subscriber). This is particularly useful in distributed systems, where you would like to know how fast your node is and how much impact the connection between the system components (e.g. Wifi) has on the overall run-time.
+This catkin package serves to analyze the timing of a ROS publisher-subscriber-pair. It requires that all messages of interest contain a header (std_msgs/Header). It will then publish the time that the subcriber node took for bare processing, and the elapsed time between setting the header timestamp (by the publisher) and finishing message processing in a callback (by the subscriber). This is particularly useful in distributed systems, where you would like to know how fast your node is and how much impact the connection between the system components (e.g. Wifi) has on the overall run-time.
 
 ## Prerequisites
 - Install [chrony](https://chrony.tuxfamily.org/index.html) on each machine that is used: `apt-get install chrony`. After installation, the chrony daemon will start automatically and synchronize the system clock of the machine with various internet servers. In a distributed system, this ensures that the clocks of the machines are in sync. This is important, as otherwise a timing analysis would be meaningless.
