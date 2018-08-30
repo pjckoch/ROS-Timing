@@ -1,7 +1,7 @@
 # The timing_analysis package
 
 ## Description
-This catkin package serves to analyze the timing of a ROS publisher-subscriber-pair. It requires that all messages of interest contain a header (std_msgs/Header). It will then publish the time that the subcriber node took for bare processing, and the elapsed time between setting the header timestamp (by the publisher) and finishing message processing in a callback (by the subscriber). This is particularly useful in distributed systems, where you would like to know how fast your node is and how much impact the connection between the system components (e.g. Wifi) has on the overall run-time.
+This catkin package serves to analyze the timing of a ROS publisher-subscriber-pair. It requires that all messages of interest contain a header (std_msgs/Header). It will then publish the time that the subcriber node took for bare processing, and the elapsed time between setting the header timestamp (by the publisher) and finishing message processing in a callback (by the subscriber). This is particularly useful in distributed systems, where you would like to know the processing time of your subscriber node and the impact of the connection between the system components (e.g. Wifi) on overall run-time.
 
 This package contains two C++ programs and one Python program:
 - [timing_analysis.cpp](src/timing_analysis/timing_analysis.cpp): This program contains one function `publishDuration()`. Each time it is called, it publishes a `std_msgs::Float32MultiArray` which will contain the information:
@@ -30,7 +30,7 @@ There is no need for to change anything about the publisher (as long as it publi
 4. Create a `ros::Publisher` (called e.g. `time_pub_`) that will publish the duration. Advertise it under a topic name like "mySubscriberDuration".
 5. At the beginning of the subscriber callback function, obtain the current system time, e.g. `ros::Time callback_begin = ros::Time::now();`
 6. At the end of the callback, obtain the current system time `ros::Time callback_end = ros::Time::now();`
-7. Pass the timestamp of the message that the node received `msg->header.stamp`, `callback_begin`, `callback_end` and `time_pub_` to the function `publishDuration()` which is contained in timing_analysis.h.
+7. Pass the timestamp of the message that the subscriber received `msg->header.stamp`, `callback_begin`, `callback_end` and `time_pub_` to the function `publishDuration()` which is contained in timing_analysis.h.
 
 
 ### Python
@@ -38,11 +38,11 @@ There is no need for to change anything about the publisher (as long as it publi
 4. Create a `rospy.Publisher` (called e.g. `time_pub_`) that will publish the duration. Advertise it under a topic name like "mySubscriberDuration".
 5. At the beginning of the subscriber callback function, obtain the current system time, e.g. `callback_begin = rospy.Time.now()`.
 6. At the end of the callback, obtain the current system time `callback_end = rospy.Time.now()`
-7. Pass the timestamp of the message that the node received `msg.header.stamp`, `callback_begin`, `callback_end` and `time_pub_` to the function `publishDuration()` which you have imported in step 3.
+7. Pass the timestamp of the message that the subscriber received `msg.header.stamp`, `callback_begin`, `callback_end` and `time_pub_` to the function `publishDuration()` which you have imported in step 3.
 
 (The following steps are language independent.)
 
 
 8. Build your catkin workspace.
-9. As soon as your node is running, you can the start the measurement by echoing the published duration messages into a txt- or log-file by running `rostopic echo -p /mySubscriberDuration > data.txt` on your command line.
+9. As soon as your publisher and subscriber are running, you can the start the measurement by echoing the published duration messages into a txt- or log-file by running `rostopic echo -p /mySubscriberDuration > data.txt` on your command line.
 10. When you finished your measurement, run the logfile_stats script (`./logfile_stats` on command line). You will be asked to specify the full path to your log-file (e.g. `/home/myusername/mylogfiles/mysubscriberduration.log`). Then, the results will be printed to your terminal.
