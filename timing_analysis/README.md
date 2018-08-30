@@ -11,12 +11,12 @@ This package serves to analyze the timing of a publisher-subscriber-pair. It req
 
 **Remark**: If you only intend to use this package with the [ROS-Robotic-Infant-Ears](https://github.com/pjckoch/ROS-Robotic-Infant-Ears.git) or the [ROS-Robotic-Infant-Eyes](https://github.com/pjckoch/ROS-Robotic-Infant-Eyes.git) repository, you can skip to step 8.
 
-There is no need for to change anything about the publisher (as long as it publishes timestamped messages). The following steps refer to the subscriber node only.
+There is no need for to change anything about the publisher (as long as it publishes timestamped messages). All of the following steps refer to the subscriber only.
 
 1. Add a build dependency on the timing_analysis package to the package.xml of your subscriber `<build_depend>timing_analysis</build_depend>`.
 2. Find the timing_analysis package in your CMakeLists.txt: find_package(catkin REQUIRED COMPONENTS timing_analysis)
 
-(The steps 3-7 differ between C++ and Python.)
+(Depending on which language your subscriber is implemented in, follow steps 3-7 either for C++ or Python.)
 
 ### C++
 
@@ -39,4 +39,4 @@ There is no need for to change anything about the publisher (as long as it publi
 8. The function `publishDuration()` will publish a `std_msgs::Float32MultiArray` which will contain the information:
 [processing_time , processing_time+network_latency].
 9. As soon as your node is running, you can the start the measurement by echoing the published duration messages into a txt- or log-file by running `rostopic echo -p /mySubscriberDuration > data.txt` on your command line.
-10. When you finished your measurement, run the logfile_stats script (`./logfile_stats` on command line). You will be asked to specify the full path to your log-file (e.g. `/home/myusername/mylogfiles/mynodeduration.log`). Then, the results will be printed to your terminal.
+10. When you finished your measurement, run the logfile_stats script (`./logfile_stats` on command line). You will be asked to specify the full path to your log-file (e.g. `/home/myusername/mylogfiles/mysubscriberduration.log`). Then, the results will be printed to your terminal.
