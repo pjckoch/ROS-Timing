@@ -34,7 +34,7 @@ There is no need for to change anything about the publisher (as long as it publi
 6. At the end of the callback, obtain the current system time `callback_end = rospy.Time.now()`
 7. Pass the timestamp of the message that the node received `msg.header.stamp`, `callback_begin`, `callback_end` and `time_pub_` to the function `publishDuration()` which you have imported in step 3.
 
-(The following steps apply are language independent.)
+(The following steps are language independent.)
 
 8. The function `publishDuration()` will publish a `std_msgs::Float32MultiArray` which will contain the information:
 [processing_time , processing_time+network_latency].
